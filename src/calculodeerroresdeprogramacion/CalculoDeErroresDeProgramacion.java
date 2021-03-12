@@ -7,90 +7,65 @@ import java.util.Scanner;
 public class CalculoDeErroresDeProgramacion {
     public static void main(String[] args) {
         Scanner t=new Scanner (System.in);
-        System.out.println("CÁLCULO DE ERRORES\n");
-        System.out.print("Unidad de medida del valor(Abreviado): ");
-        String unidad=t.next();
-        System.out.print("Ingrese el valor real: ");
-        double real=t.nextDouble();
-        System.out.print("Ingrese el valor aproximado: ");
-        double aprox=t.nextDouble();
+        double real=0,aprox=0;
+        boolean salir=false;
+        do{
+            System.out.println("\n_________________________________________");
+            System.out.println("\nCÁLCULO DE ERRORES");
+            System.out.println("      MENU         ");
+            System.out.println("1.Error Absoluto");
+            System.out.println("2.Error Relativo");
+            System.out.println("3.Error Relativo Porcentual");
+            System.out.println("4.Calcular todos los Errores anteriores");
+            System.out.println("5.Salir");
+            System.out.println("_________________________________________");
+            System.out.println("¿Qué error quiere calcular?");
+            int opcion=t.nextInt();
+            
+            switch(opcion){
+                
+                case 1:
+                    System.out.print("Ingrese el valor real: ");
+                    real=t.nextDouble();
+                    System.out.print("Ingrese el valor aproximado: ");
+                    aprox=t.nextDouble();
+                    Errores valores=new Errores(real,aprox);
+                    System.out.println("\nEl valor Absoluto es: "+valores.ErrorAbsoluto());
+                    break;
+                case 2:
+                    System.out.print("Ingrese el valor real: ");
+                    real=t.nextDouble();
+                    System.out.print("Ingrese el valor aproximado: ");
+                    aprox=t.nextDouble();
+                    valores=new Errores(real,aprox);
+                    System.out.println("El valor Relativo es: "+valores.ErrorRelativo());
+                    break;
+                case 3:
+                    System.out.print("Ingrese el valor real: ");
+                    real=t.nextDouble();
+                    System.out.print("Ingrese el valor aproximado: ");
+                    aprox=t.nextDouble();
+                    valores=new Errores(real,aprox);
+                    System.out.println("El valor Relativo Porcentual es: "+valores.ErrorRelativoPorcentual()+" %");
+                    break;
+                case 4:
+                    System.out.print("Ingrese el valor real: ");
+                    real=t.nextDouble();
+                    System.out.print("Ingrese el valor aproximado: ");
+                    aprox=t.nextDouble();
+                    valores=new Errores(real,aprox);
+                    System.out.println("\nEl valor Absoluto es: "+valores.ErrorAbsoluto());
+                    System.out.println("El valor Relativo es: "+valores.ErrorRelativo());
+                    System.out.println("El valor Relativo Porcentual es: "+valores.ErrorRelativoPorcentual()+" %");
+                    break;
+                case 5:
+                    salir=true;
+                    System.out.println("ESTE PROGRAMA FUÉ HECHO POR JOSÉ MAURICIO CANUL CHUC - 19070026");
+                    break;
+                default:
+                    System.out.println("La opción ingresada no es válida");
+            }
+        }while(salir!=true);
         
-        Errores valores=new Errores(real,aprox);
-        
-        double res=valores.ErrorAbsoluto();
-        System.out.println("\nEl valor Absoluto es: "+res+" "+unidad);
-        res=valores.ErrorRelativo();
-        System.out.println("El valor Relativo es: "+res);
-        res=valores.ErrorRelativoPorcentual();
-        System.out.println("El valor Relativo Porcentual es: "+res+" %");
     }
 }
-
-class Errores{ //Clase llamada Errores
-    private double ValorReal;
-    private double ValorAproximado;
-    
-    //Métodos get y set
-    public double getValorReal() {
-        return ValorReal;
-    }
-
-    public void setValorReal(double ValorReal) {
-        this.ValorReal = ValorReal;
-    }
-
-    public double getValorAproximado() {
-        return ValorAproximado;
-    }
-
-    public void setValorAproximado(double ValorAproximado) {
-        this.ValorAproximado = ValorAproximado;
-    }
-    
-    //Constructor
-    Errores (double ValorReal,double ValorAproximado){
-        this.ValorReal=ValorReal;
-        this.ValorAproximado=ValorAproximado;
-    }
-    
-    //Métodos Para el cálculo del Error Absoluto, Error Relativo y Error Relativo Porcentual
-    public double ErrorAbsoluto(){
-        double error,resultado;
-        
-        error=ValorReal-ValorAproximado;
-        if(error<0)
-            resultado=(-1)*error;
-        else
-            resultado=error;
-        
-        return resultado;
-    }
-    
-    public double ErrorRelativo(){
-        double error,resultado;
-        
-        error=(ValorReal-ValorAproximado)/ValorReal;
-        
-        if(error<0)
-            resultado=(-1)*error;
-        else
-            resultado=error;
-        
-        return resultado;
-    }
-    
-    public double ErrorRelativoPorcentual(){
-        double error,resultado;
-        
-        error=((ValorReal-ValorAproximado)/ValorReal)*100;
-        
-        if(error<0)
-            resultado=(-1)*error;
-        else
-            resultado=error;
-        
-        return resultado;
-    }
-}
-
-//FALTÓ LA REUTILIZACION DE FUNCIONES, ESTUVE INVESTIGANDO Y NO ENCONTRE COMO REUTILIZARLOS
